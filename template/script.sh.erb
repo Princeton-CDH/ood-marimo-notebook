@@ -66,6 +66,10 @@ echo "TIMING - Starting marimo at: $(date)"
 # Launch the marimo
 set -x
 
+# use pre-downloaded resources
+export STANZA_RESOURCES_DIR=/scratch/gpfs/rkoeser/.stanza_resources/
+
 #uv run marimo edit --base-url /node/${host}/${port} $MARIMO_CONFIG --allow-origins '*' notebook.py
-marimo edit --base-url /node/${host}/${port} $MARIMO_CONFIG --allow-origins '*' notebook.py
+#marimo edit --base-url /node/${host}/${port} $MARIMO_CONFIG --allow-origins '*' notebook.py
+marimo run --base-url /node/${host}/${port} $MARIMO_CONFIG --allow-origins '*' test-app.py
 

@@ -1,7 +1,7 @@
 ---
-name: Marimo Notebook
+name: remarx lemmatized search
 category: Interactive Apps
-subcategory: Servers
+subcategory: App
 role: batch_connect
 description: |
-  This app will launch a Marimo notebook as an interactive batch job.
+  This app will launch a Marimo notebook running in app mode.
