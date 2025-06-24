@@ -21,10 +21,14 @@ export PATH
 # Sanity checks:
 [[ -z "$project_path" ]] && { echo "Parameter project_path is empty" ; exit 1; }
 
+# activate conda env
+echo "Loading conda environment"
+module load anaconda3/2024.6
+conda activate marx
 
 # make sure we have UV
-echo "Attempting to self-update uv, alternatively install it:"
-uv self update || curl -LsSf https://astral.sh/uv/install.sh | sh
+#echo "Attempting to self-update uv, alternatively install it:"
+#uv self update || curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # now cd to the uv project
 # Set working directory to home directory
@@ -35,25 +39,25 @@ echo "curr. dir: ${PWD}"
 
 
 # create uv project, if there is none yet in current directory
-if [ -f pyproject.toml  ]; then
-        # project.toml is already there -> no need to init project
-        echo "script.sh: pyproject.toml found"
-else
-        # project.toml is not yet there. We init project with the minimum python version
-        # we do not pin python as it is to be pinned in following logic
-        echo "script.sh: Initialising new uv project"
-        uv init --python ${minimum_python} --no-pin-python .
-        uv add pip
-        if [ -z "$python_version" ]; then
-                # python was not specified, so we pin default python
-                uv python pin $default_python
-                uv venv
-        fi
-fi
+#if [ -f pyproject.toml  ]; then
+        ## project.toml is already there -> no need to init project
+        #echo "script.sh: pyproject.toml found"
+#else
+        ## project.toml is not yet there. We init project with the minimum python version
+        ## we do not pin python as it is to be pinned in following logic
+        #echo "script.sh: Initialising new uv project"
+        #uv init --python ${minimum_python} --no-pin-python .
+        #uv add pip
+        #if [ -z "$python_version" ]; then
+                ## python was not specified, so we pin default python
+                #uv python pin $default_python
+                #uv venv
+        #fi
+#fi
 
 
 #v add marimo
-uv add "marimo[recommended]"
+#uv add "marimo[recommended]"
 
 
 # Benchmark info
@@ -62,5 +66,6 @@ echo "TIMING - Starting marimo at: $(date)"
 # Launch the marimo
 set -x
 
-uv run marimo edit --base-url /node/${host}/${port} $MARIMO_CONFIG --allow-origins '*' notebook.py
+#uv run marimo edit --base-url /node/${host}/${port} $MARIMO_CONFIG --allow-origins '*' notebook.py
+marimo edit --base-url /node/${host}/${port} $MARIMO_CONFIG --allow-origins '*' notebook.py
 
